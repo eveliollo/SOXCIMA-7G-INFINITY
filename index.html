@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SOXCIMA 7G INFINITY — Red Soberana Descentralizada</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+
+  :root{
+    --bg: #ffffff;
+    --ink: #0b1220;
+    --body: #5b6472;
+    --muted: #98a1ad;
+    --line: #eef0f3;
+    --surface: #f7f8fa;
+    --g1: #00d9a3;   /* verde-menta */
+    --g2: #4f7cff;   /* azul */
+    --g3: #a259ff;   /* violeta */
+    --grad: linear-gradient(120deg, var(--g1), var(--g2) 55%, var(--g3));
+    --sans: 'Inter', sans-serif;
+    --disp: 'Space Grotesk', sans-serif;
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    background: var(--bg);
+    color: var(--body);
+    font-family: var(--sans);
+    line-height: 1.65;
+    overflow-x: hidden;
+  }
+
+  .wrap{ max-width: 980px; margin:0 auto; padding: 0 24px; position:relative; }
+
+  /* ---------- fondo ambiental ---------- */
+  .blob{
+    position:absolute; z-index:-1; border-radius:50%;
+    filter: blur(70px); opacity:.35;
+  }
+  .blob-1{ width:480px; height:480px; top:-180px; left:-160px; background: var(--g1); }
+  .blob-2{ width:420px; height:420px; top:-60px; right:-180px; background: var(--g3); }
+  .blob-3{ width:360px; height:360px; top:600px; left:40%; background: var(--g2); opacity:.2; }
+
+  /* ---------- header ---------- */
+  header{ padding: 90px 0 40px; text-align:center; position:relative; }
+
+  .pill{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family: var(--disp); font-size:.82rem; font-weight:600;
+    letter-spacing:.03em; color: var(--ink);
+    background: var(--surface); border:1px solid var(--line);
+    padding: 8px 16px; border-radius: 999px; margin-bottom: 30px;
+  }
+  .pill .dot{ width:8px; height:8px; border-radius:50%; background: var(--grad); }
+
+  h1{
+    font-family: var(--disp);
+    font-weight: 700;
+    font-size: clamp(2.6rem, 7vw, 4.6rem);
+    letter-spacing: -0.03em;
+    line-height: 1.02;
+    background: var(--grad);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .subtitulo{
+    font-family: var(--disp);
+    font-size: 1.4rem; font-weight: 600;
+    color: var(--ink); margin-top: 20px;
+  }
+  .descripcion{
+    font-size: 1.08rem; color: var(--body);
+    max-width: 46ch; margin: 16px auto 0;
+  }
+
+  /* ---------- tarjeta flotante de topología ---------- */
+  .stage{
+    position:relative;
+    margin: 56px auto 0;
+    max-width: 720px;
+    padding: 30px;
+    background: rgba(255,255,255,0.6);
+    backdrop-filter: blur(18px);
+    border: 1px solid var(--line);
+    border-radius: 28px;
+    box-shadow: 0 30px 60px -30px rgba(20,30,60,0.25);
+  }
+  #topology{ display:block; width:100%; height:auto; }
+  #topology .edge{ stroke: url(#lineGrad); stroke-width: 1.4; opacity:.55; }
+  #topology .node{ fill:#fff; stroke: var(--g2); stroke-width: 2; }
+  #topology .node-core{ fill: url(#coreGrad); }
+  #topology .lbl{ font-family: var(--disp); font-size: 10px; fill: var(--muted); font-weight:600; }
+  #topology .pulse{ fill: var(--g1); }
+
+  @keyframes float{
+    0%,100%{ transform: translateY(0px); }
+    50%{ transform: translateY(-6px); }
+  }
+  .stage{ animation: float 6s ease-in-out infinite; }
+
+  /* ---------- secciones ---------- */
+  .seccion{ padding: 70px 0; }
+  .kicker{
+    font-family: var(--disp); font-weight:600; font-size:.85rem;
+    letter-spacing:.08em; text-transform:uppercase; color: var(--g2);
+    margin-bottom: 10px;
+  }
+  h2{
+    font-family: var(--disp); font-weight:700;
+    font-size: 2rem; color: var(--ink); letter-spacing:-0.02em;
+    margin-bottom: 34px;
+  }
+
+  .grid-cards{
+    display:grid; grid-template-columns: repeat(2, 1fr); gap: 18px;
+  }
+  .card{
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 26px;
+    transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+  }
+  .card:hover{
+    transform: translateY(-4px);
+    box-shadow: 0 24px 40px -28px rgba(20,30,60,.3);
+    border-color: transparent;
+  }
+  .card .ico{
+    width: 40px; height:40px; border-radius: 12px;
+    background: var(--grad);
+    margin-bottom: 16px;
+    display:flex; align-items:center; justify-content:center;
+    font-size: 1.1rem;
+  }
+  .card h3{
+    font-family: var(--disp); font-size:1.05rem; color: var(--ink);
+    margin-bottom: 8px; font-weight:600;
+  }
+  .card p{ font-size: .95rem; }
+
+  .tag-row{ margin-top: 30px; display:flex; flex-wrap:wrap; gap:10px; }
+  .etiqueta{
+    font-family: var(--disp); font-size:.8rem; font-weight:600;
+    padding: 7px 14px; border-radius: 999px;
+    background: var(--surface); border:1px solid var(--line); color: var(--ink);
+  }
+
+  .firma-card{
+    background: var(--ink);
+    border-radius: 24px;
+    padding: 40px;
+    text-align:center;
+    position: relative;
+    overflow:hidden;
+  }
+  .firma-card::before{
+    content:''; position:absolute; inset:0;
+    background: var(--grad); opacity:.15;
+  }
+  .firma-card code{
+    position:relative; font-family: var(--disp); font-weight:600;
+    color: #fff; font-size: 1rem; letter-spacing:.02em;
+  }
+
+  .codigo{
+    background: var(--ink);
+    color: #d7f9ee;
+    font-family: 'Space Grotesk', monospace;
+    font-size: .92rem;
+    padding: 26px 28px;
+    border-radius: 20px;
+    overflow-x: auto;
+    line-height: 1.8;
+  }
+  .codigo .cm{ color: #7d8a99; }
+
+  footer{
+    text-align:center; padding: 50px 0 80px;
+    font-family: var(--disp); font-size:.85rem; color: var(--muted);
+  }
+  footer .accent{
+    background: var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent; font-weight:600;
+  }
+
+  @media (max-width: 640px){
+    .grid-cards{ grid-template-columns: 1fr; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .stage, .pulse{ animation:none !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="blob blob-1"></div>
+<div class="blob blob-2"></div>
+<div class="blob blob-3"></div>
+
+<div class="wrap">
+
+  <header>
+    <span class="pill"><span class="dot"></span>Nodo abierto · red P2P</span>
+    <h1>SOXCIMA<br>7G INFINITY</h1>
+    <p class="subtitulo">Red soberana descentralizada, completa</p>
+    <p class="descripcion">Nodos conectados entre sí, sin servidor central, con cifrado de extremo a extremo y procesamiento en tu propio dispositivo.</p>
+
+    <div class="stage">
+      <svg id="topology" viewBox="0 0 800 220" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="lineGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#00d9a3"/>
+            <stop offset="100%" stop-color="#a259ff"/>
+          </linearGradient>
+          <linearGradient id="coreGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#00d9a3"/>
+            <stop offset="100%" stop-color="#4f7cff"/>
+          </linearGradient>
+        </defs>
+
+        <line class="edge" x1="120" y1="60"  x2="400" y2="110"/>
+        <line class="edge" x1="400" y1="110" x2="680" y2="50"/>
+        <line class="edge" x1="120" y1="60"  x2="220" y2="180"/>
+        <line class="edge" x1="220" y1="180" x2="400" y2="110"/>
+        <line class="edge" x1="400" y1="110" x2="560" y2="175"/>
+        <line class="edge" x1="560" y1="175" x2="680" y2="50"/>
+        <line class="edge" x1="220" y1="180" x2="560" y2="175"/>
+
+        <circle class="node" cx="120" cy="60"  r="9"/>
+        <circle class="node" cx="220" cy="180" r="9"/>
+        <circle class="node" cx="560" cy="175" r="9"/>
+        <circle class="node" cx="680" cy="50"  r="9"/>
+        <circle class="node node-core" cx="400" cy="110" r="13" stroke="none"/>
+
+        <text class="lbl" x="105" y="42">nodo_a</text>
+        <text class="lbl" x="200" y="202">nodo_b</text>
+        <text class="lbl" x="540" y="197">nodo_c</text>
+        <text class="lbl" x="655" y="32">nodo_d</text>
+        <text class="lbl" x="380" y="94">núcleo</text>
+
+        <circle class="pulse" r="4">
+          <animateMotion dur="3.2s" repeatCount="indefinite"
+            path="M120,60 L400,110 L680,50 L560,175 L220,180 L120,60"/>
+        </circle>
+      </svg>
+    </div>
+  </header>
+
+  <section class="seccion">
+    <p class="kicker">Características</p>
+    <h2>Qué hace a SOXCIMA distinto</h2>
+
+    <div class="grid-cards">
+      <div class="card">
+        <div class="ico">🌐</div>
+        <h3>Puente entre nodos</h3>
+        <p>Cada nodo se comunica con otros directamente, sin depender de un servidor central.</p>
+      </div>
+      <div class="card">
+        <div class="ico">🔒</div>
+        <h3>Cifrado de extremo a extremo</h3>
+        <p>Curve25519 + ChaCha20-Poly1305, compatible con Android y otras plataformas.</p>
+      </div>
+      <div class="card">
+        <div class="ico">🧠</div>
+        <h3>Núcleo INFINITY</h3>
+        <p>Memoria de configuración local con firma de verificación única por instalación.</p>
+      </div>
+      <div class="card">
+        <div class="ico">🤖</div>
+        <h3>Procesamiento local</h3>
+        <p>El cómputo corre en tu propio dispositivo; no se envían datos a servidores externos.</p>
+      </div>
+      <div class="card">
+        <div class="ico">🕵️</div>
+        <h3>Identidad configurable</h3>
+        <p>El uso de datos de ubicación es opcional, no obligatorio por defecto.</p>
+      </div>
+      <div class="card">
+        <div class="ico">🛠️</div>
+        <h3>Bajo consumo</h3>
+        <p>Corre en Termux, Orange Pi, teléfonos y equipos con recursos limitados.</p>
+      </div>
+    </div>
+
+    <div class="tag-row">
+      <span class="etiqueta">rust</span>
+      <span class="etiqueta">p2p</span>
+      <span class="etiqueta">curve25519</span>
+      <span class="etiqueta">chacha20-poly1305</span>
+      <span class="etiqueta">termux</span>
+      <span class="etiqueta">orange-pi</span>
+    </div>
+  </section>
+
+  <section class="seccion">
+    <p class="kicker">Verificación</p>
+    <h2>Firma del proyecto</h2>
+    <div class="firma-card">
+      <code>SOCXIMA-EVELIO-7A9B2F4C-NUCLEO-INMUTABLE</code>
+    </div>
+  </section>
+
+  <section class="seccion">
+    <p class="kicker">Instalación</p>
+    <h2>Empezar ahora</h2>
+    <div class="codigo"><span class="cm"># Clonar el repositorio</span>
+git clone https://github.com/eveliollo/SOXCIMA-7G-INFINITY.git
+cd SOXCIMA-7G-INFINITY
+
+<span class="cm"># Compilar el nodo</span>
+cargo build --release
+
+<span class="cm"># Ejecutar tu nodo SOXCIMA</span>
+./target/release/socxima_7g_infinity</div>
+  </section>
+
+</div>
+
+<footer>
+  © 2026 SOXCIMA — <span class="accent">Proyecto abierto</span><br>
+  Código sin dependencias externas obligatorias
+</footer>
+
+</body>
+</html>
