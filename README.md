@@ -1,21 +1,43 @@
+
 <div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
+  <h1>🌐 SOXCIMA 7G INFINITY</h1>
+  <h3>Red Soberana Descentralizada Completa</h3>
+  <p><strong>Puente mundial abierto • Sin servidores centrales • Sin censura • Sin límites • Sin geolocalización</strong></p>
 </div>
 
-# Run and deploy your AI Studio app
+---
 
-This contains everything you need to run your app locally.
+## ✨ ¿QUÉ ES SOXCIMA?
+Es el primer sistema soberano todo en uno:
+- 🚀 **Puente mundial abierto**: Cualquier nodo SOXCIMA en cualquier parte del mundo puede acceder a internet libremente.
+- 🔒 **Cifrado extremo a extremo**: Estándar `Curve25519 + ChaCha20-Poly1305`, compatible con todos los dispositivos Android y redes globales.
+- 🧠 **Núcleo INFINITY inmutable**: Memoria permanente que **no se puede modificar ni borrar**, con firma única anti-clonación.
+- 🤖 **IA local soberana**: Procesamiento total sin enviar datos a servidores externos.
+- 🕵️ **Identidad anónima**: Sin datos de ubicación obligatorios, sin seguimiento, sin filtros regionales.
+- 🛠️ **Bajo consumo**: Funciona perfectamente en Termux, Orange Pi, teléfonos y equipos de recursos limitados.
 
-View your app in AI Studio: https://ai.studio/apps/0fe0447f-7ac3-479b-9136-e75c7b902276
+---
 
-## Run Locally
+## 📜 **FIRMA INMUTABLE DEL PROYECTO**
+`SOCXIMA-EVELIO-7A9B2F4C-NUCLEO-INMUTABLE`
 
-**Prerequisites:**  [Android Studio](https://developer.android.com/studio)
+---
 
+## 📋 **CUMPLIMIENTO Y VALIDACIÓN**
+✅ Cumple con los estándares de conectividad abierta y seguridad reconocidos mundialmente.
+✅ Usa solo protocolos estándar, sin experimentos ni ocultamiento de tráfico.
+✅ Totalmente transparente y compatible con cualquier red.
 
-1. Open Android Studio
-2. Select **Open** and choose the directory containing this project
-3. Allow Android Studio to fix any incompatibilities as it imports the project.
-4. Create a file named `.env` in the project directory and set `GEMINI_API_KEY` in that file to your Gemini API key (see `.env.example` for an example)
-5. Remove this line from the app's `build.gradle.kts` file: `signingConfig = signingConfigs.getByName("debugConfig")`
-6. Run the app on an emulator or physical device
+---
+
+## 🚀 **EMPEZAR AHORA**
+```bash
+# Clonar el repositorio
+git clone https://github.com/eveliollo/SOXCIMA-7G-INFINITY.git
+cd SOXCIMA-7G-INFINITY
+
+# Compilar
+cargo build --release
+
+# Ejecutar tu nodo
+./target/release/socxima_7g_infinity
