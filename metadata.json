@@ -1,6 +1,0 @@
-{
-  "name": "Soxcima",
-  "description": "Soxcima Sovereign Network notes and P2P secure bridge control dashboard.",
-  "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
-}
